@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 왼쪽으로 100% 밀어준다 */
+        .hide{
+            transform: translateX(-100%);
+            height: 0;
+        }
+        .highlight{
+           text-decoration: underline;
+           font-size: 32pt;
+           color:orangered
+        }
+        #my_id{
+            transition: all 1s ease-in-out; /* 1초 동안 부드럽게 이동 */
+        }
+    </style>
+</head>
+<body>
+    <h1 id="my_id" onmouseover=강조효과() onmouseleave=강조효과해제()>열고 닫기</h1>
+    <button id="toggle-btn" onclick=숨겼다가보였다가()>토글 버튼</button>
+
+
+    <script>
+        function 숨겼다가보였다가(){
+            // 저장할 코드를 기입
+            // my_id에 hide라는 클래스 이름을 붙였다가 뗏다가 하는 코드 작성
+            document.getElementById('my_id').classList.toggle('hide'); // toggle : 클래스가 있으면 없애고, 없으면 붙인다.
+        }
+        function 강조효과(){
+            document.getElementById('my_id').classList.add('highlight'); // add : 클래스가 없으면 붙인다.
+        }
+        
+        function 강조효과해제(){
+            document.getElementById('my_id').classList.remove('highlight'); // add : 클래스가 없으면 붙인다.
+        }
+    </script>
+</body>
+</html>
