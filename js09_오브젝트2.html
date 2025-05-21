@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오브젝트2</title>
+
+</head>
+<body>
+    <pre id="box"></pre>
+
+    <script>
+        // 객체 , object
+        var 상품1 = {이름:'연필', 가격:1000}; 
+        var 상품2 = {이름:'샤프', 가격:2000};
+        var 상품3 = {이름:'볼펜', 가격:1500}; 
+
+        let 상품들 = [
+            {이름:'연필', 가격:1000},
+            {이름:'샤프', 가격:2000},
+            {이름:'볼펜', 가격:1500}  
+        ]
+        상품들 [0].이름;
+        상품들 [0].가격;
+
+        // map 반복문이며, 배열한테 사용함 : 하나씩 까면서 반복함함
+        상품들.map(function(item){
+            document.getElementById('box').innerHTML += item.이름 + " : " + item.가격 + "원\n";
+        });
+
+    </script>
+
+
+</body>
+</html>

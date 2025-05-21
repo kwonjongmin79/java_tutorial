@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }        
+        .no-display {
+            display: none;
+        }
+        .show-display{
+            display : inline-block;
+}
+        ul{
+            display: flex;
+            list-style: none;
+            
+        }
+        ul li{
+            padding: 4px 12px;
+            border: 1px solid #b3b3b3;
+        }
+        .tab-selected{
+            border-top: 2px solid #f78504;
+        }
+ </style>
+</head>
+<body>
+    <!-- 탭 : 탭을 누르면 해당 항목의 내용이 보임 -->
+    <div>
+        <ul>
+            <li class="tab-class">탭1</li>
+            <li class="tab-class">탭2</li>
+            <li class="tab-class">탭3</li>
+        </ul>
+        <p class="content no-display">탭1의 내용</p>
+        <p class="content no-display">탭2의 내용</p>
+        <p class="content no-display">탭3의 내용</p>    
+    </div>
+    <script>
+        var tabButtons = document.getElementsByClassName("tab-class");
+        var contents = document.getElementsByClassName("content");
+        // var 변수 : 반복문에서 버그가 있음
+        // let 변수 : 반복문에서 버그가 없음
+        // const 한번 정하면 못바꾸는 변수 상수 =3 
+        // let변수; 변수<원하는 숫자; 변수++
+        for(let i= 0; i < tabButtons.length; i++){ // .length : 배열의 갯수 3개(현재기준)
+            tabButtons[i].addEventListener("click", function(){
+                // 먼저 모두 선택 안된 상태로 만들고
+            for(let j = 0; j < tabButtons.length; j++){    
+                tabButtons[j].classList.remove("tab-selected");
+                contents[j].classList.add("no-display");
+            }    
+            // 선택된 애들만 보이게 처리리    
+            tabButtons[i].classList.add("tab-selected");
+            contents[i].classList.remove("no-display");    
+
+        
+        })
+                
+        }
+        
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <pre id="text"></pre>
+    <script>     
+        // 반복문 : 배열과 같이 많이 사용
+        var 숫자1 = 1
+        var 숫자2 = 2
+        var 숫자3 = 3
+        // 숫자 1,2,3을 뭉쳐서 만들자 = 배열
+        var 배열 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] // 3개의 변수를 붂음으로 생성
+        // 배열이 반복문이 아니면 늘어날때마다 코드를 계속 추가해야함
+        // document.getElementById('text').innerHTML +=숫자1
+        // document.getElementById('text').innerHTML +=숫자2
+        // document.getElementById('text').innerHTML +=숫자3
+        
+        // 반복문을 사용하면 배열 갯수에 따라 자동적으로 늘어나게됨
+        for (var i = 0; i < 배열.length; i++){
+            // 배열.length : 배열의 길이
+            // 배열[0] : 1
+            // 배열[1] : 2
+            // 배열[2] : 3
+            document.getElementById('text').innerHTML += 배열[i] + '\n'
+        }
+    </script>
+
+</body>
+</html>
