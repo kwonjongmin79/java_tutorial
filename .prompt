@@ -1,0 +1,171 @@
+[TASK]
+- HTML과 JAVASCRIPT를 기반으로 한 CSS 완성
+
+[FEATURES]
+- CONTEXT를 참고해서 CSS 적절하게 구성
+- 등록버튼을 오른쪽으로 구성
+- ToDo 글자는 중앙 배치
+- 입력창 중앙 배치
+
+[CONSTRAINTS]
+- 기존의 HTML과 JAVASCRIPT 구조를 최대한 유지하면서 CSS 작성
+
+[CONTEXT]
+<style>
+        * {
+            margin : 0;
+            padding : 0;
+            box-sizing : border-box;
+        }
+        body {
+            background-image: url(./img/kakao.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh; 
+            min-width: 100%;
+            font-family: 'Nanum Gothic', sans-serif;   
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-attachment: fixed;
+        }
+        /* 폼 컨테이너 */
+        .form_container {
+            background-color: rgba(255, 255, 255, 0.5); /* 반투명 흰색 배경 */
+            backdrop-filter: blur(5px); /* 배경 흐림 효과 */
+            padding: 2rem; /* 폼 내부 여백 */
+            border-radius: 1rem; /* 둥근 모서리 */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 그림자 효과 */
+            width: 100%; /* 폼의 너비 */
+            max-width: 400px; /* 최대 너비 */
+        }
+        /* 입력창 */
+        #form_input {
+            flex:1; /* 입력창이 가능한 공간을 모두 차지 */
+            padding: 0.75rem 1rem; /* 입력창 내부 여백 */
+            font-size: 1rem; /* 폰트 크기 */
+            border: 2px solid #ccc; /* 테두리 */
+            border-radius: 0.5rem; /* 둥근 모서리 */          
+            transition: border-color 0.2s; /* 테두리 색상 변화 효과 */
+        }
+        #form_input:focus{
+            border-color:#6c63ff; /* 포커스 시 테두리 색상 */
+        }
+        /* 등록 버튼 */
+        .form-btn{
+            padding:0.75rem 1rem; /* 버튼 내부 여백 */
+            margin-left:0.5rem ; /* 버튼과 입력창 사이 여백 */
+            font-size: 1rem; /* 폰트 크기 */
+            background-color: #6c63ff; /* 버튼 배경색 */
+            color: #fff; /* 버튼 글자색 */
+            border: none; /* 테두리 제거 */
+            border-radius: 0.5rem; /* 둥근 모서리 */
+            cursor: pointer; /* 커서 모양 변경 */
+            transition: background-color 0.2s, transform 0.1s; /* 배경색 변화 효과 */
+        }
+        .form-btn:hover {
+            background-color: #5950d4; /* 호버 시 배경색 변화 */
+        }
+        .form-btn:active {
+            transform: scale(0.95); /* 클릭 시 버튼 크기 축소 효과 */
+        }
+
+        /* ToDo 리스트 */
+        #todolist {
+            list-style: none; /* 리스트 스타일 제거 */
+            margin-top: 1.5rem; /* 리스트와 폼 사이 여백 */
+        }
+        .todo_list{
+            display:flex; /* 리스트 아이템을 flex로 배치 */
+            justify-content: space-between; /* 아이템 간격 조정 */
+            align-items: center; /* 아이템 세로 정렬 */
+            padding:0.75rem 1rem; /* 리스트 아이템 내부 여백 */
+            margin-bottom 0.75rem; /* 리스트 아이템 간격 */
+            border-radius:0.5rem; /* 둥근 모서리 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 그림자 효과 */
+        }
+        .todo_list span {
+            word-break:break-all; /* 긴 단어 줄바꿈 */
+            color:#333; /* 글자색 */
+        }             
+        /* 삭제 버튼*/
+        .delete_btn{
+            background: transparent; /* 투명 배경 */
+            border: 2px solid #ff6b6b ; /* 빨간색 테두리 */
+            color: #ff6b6b; /* 빨간색 글자 */
+            padding: 0.4rem 0.75rem; /* 버튼 내부 여백 */
+            border-radius: 0.5rem; /* 둥근 모서리 */
+            cursor: pointer; /* 커서 모양 변경 */
+            font-size: 0.9rem; /* 폰트 크기 */
+            transition: background-color 0.2s, color 0.2s; /* 배경색과 글자색 변화 효과 */
+        }
+        .delete_btn:hover{
+            background-color:#ff6b6b; /* 호버 시 배경색 변화 */
+            color:#fff; /* 호버 시 글자색 변화 */
+        }
+    </style>
+
+</head>
+<body>
+    <div class="form_container">
+        <form onsubmit="등록하기(event)">
+            <div class="form_container">
+                <h1>ToDo</h1>
+                <input id="form_input"/>
+                <button type="submit" class="form-btn">등록</button>
+            </div>
+
+
+        </form>
+            <ul id="todolist"></ul>
+
+    </div>
+    <script>
+        let 배열 = []
+
+        function 등록하기(event){
+            // form submit 시 페이지 새로고침 방지
+            event.preventDefault();
+            // input에 입력된 내용을 가져와서 alert에 뜨워봐야지
+            let 입력내용 = document.getElementById("form_input").value;
+            if(입력내용)   // 입력내용이 비어있다면, 걸러준다.
+            // 배열에다가 넣는다. push
+            배열.push(입력내용);
+            // input 내용을 비워준다.
+            document.getElementById("form_input").value ="";
+
+            // 배열에 있는 내용을 모두 li태그로 ul#todolist에 넣어준다.
+         
+            // 입력내용을 배열에 Push를 하고 배열에 있는 내용을 ul 안에 li로 보여준다.
+            li태그추가하기()
+        }
+        function li태그추가하기(){
+            // 배열에 있는 모든 내용을 반복하면서 li태그로 넣는다.
+            document.getElementById("todolist").innerHTML =""; // 기존의 내용을 비워준다.
+            
+            for(let 순번=0; 순번 < 배열.length; 순번++){
+                // ul#todolist에 li태그를 추가한다.
+                document.getElementById("todolist").innerHTML +=`
+                    <li class='todo_list'>
+                        <span>${배열[순번]}</span> 
+                        <button class='delete_btn'>삭제</button>   
+                        </li>
+                ` 
+            }
+         
+            for(let 순번=0; 순번 < document.getElementsByClassName("delete_btn").length; 순번++){
+                // 모든 삭제 버튼에 대해서 클릭 이벤트를 추가한다 addEvent
+                document.getElementsByClassName('delete_btn')[순번].addEventListener('click', function(){
+                    // 배열에서 [순번] 항목을 제거하고
+                    배열.splice(순번, 1); // 배열에서 순번위치부터 1개 삭제
+                    // 다시 그린다.
+                   li태그추가하기(); 
+                });
+                };
+            }
+          
+
+
+    </script>
+</body>
