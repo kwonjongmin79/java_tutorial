@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <div class="box">
+            <p id="array_sort"></p>
+            <button onclick="글자순정렬()">글자 정렬</button>
+            <button onclick="숫자순정렬()">숫자 정렬</button>
+            <button onclick="곱하기100()">곱하기</button>
+            <hr/>
+
+            <h1 id="array_object"></h1>
+            <button onclick="가격순정렬()">가격순으로 정렬하기</button>
+            <button onclick="오만원이상()">5만원 이상만 보여주기</button>
+            <button onclick="제목순정렬()">제목순으로 정렬하기</button>
+        </div>
+            
+        <script>
+            //배열이나 객체에서 제공하는 함수를 통해서 정렬 (혹은 계산)
+            let 배열 = [6, 3, 40, 7, 2, 8]
+            document.getElementById('array_sort').innerHTML = 배열
+
+            function 글자순정렬(){
+                배열.sort()
+                document.getElementById('array_sort').innerHTML = 배열
+            }
+
+            function 숫자순정렬(){
+                배열.sort((앞, 뒤)=>{   // 글자순으로 정렬해줌 내가 지정할때
+                    return 앞 - 뒤    
+                });
+                document.getElementById('array_sort').innerHTML = 배열
+            }
+
+            // 일괄적으로 모두 100곱하기 
+            function 곱하기100(){
+            let 새배열 = 배열.map((각요소, 순번) => {
+                return 각요소 * 100;
+            });
+            document.getElementById('array_sort').innerHTML = 새배열;
+        }
+        // 객체 배열
+            let pdt = [{id:0, price:70000, title:'7만원'},{id:1, price:30000, title:'3만원'},{id:2, price:50000, title:'5만원'}]
+        
+        function 객체배열모두보여주기(객체배열){
+            document.getElementById('array_object').innerHTML = 객체배열.map((첫번째, 두번째)=>{
+                return (`${첫번째.title} : ${첫번째.price}원`)
+            }).join(`<br/>`);
+
+        }
+        객체배열모두보여주기(pdt);
+
+        function 가격순정렬(){  // 배열 정렬을 한 sort
+            pdt.sort((앞, 뒤)=>{
+                return 앞.price - 뒤.price;
+            });
+            객체배열모두보여주기(pdt);
+        }
+         function 오만원이상(){ // 배열 필터링 filter
+           let 필터링된배열 = pdt.filter((항목)=>{ // ()안에 필터링 기준 함수 만들어줘야 함
+                return 항목.price >= 50000;
+           }); 
+            객체배열모두보여주기(필터링된배열);
+        }
+        function 제목순정렬(){ // 배열 필터링 filter
+            pdt.sort((앞,뒤)=>{
+                return 뒤.title.localeCompare(앞.title, "KO-KR"); // 지역언어비교 (영어는 영어버전, 한글이면 한글버전)
+           }); 
+            객체배열모두보여주기(pdt);
+        }
+       
+        
+        </script>
+</body>
+</html>

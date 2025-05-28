@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise</title>
+</head>
+<body>
+
+        <button onclick="오래걸리는작업()">작업시작</button>
+        <p id="msg"></p>
+       <script>
+            // Promise를 사용하여 비동기 작업을 처리하는 예제 (보통 오래걸리는 작업에 사용)
+            function 오래걸리는작업() {  // 랜덤을 돌려서 50보다 크면 성공, 50보다 작으면 실패                
+                document.getElementById('msg').innerHTML = "작업 중...";
+
+            let promise요청 = new Promise((성공, 실패)=>{
+                     setTimeout(()=>{
+                    let 큰값 = (Math.random() * 100) > 50; // 0~99 사이의 랜덤 숫자 생성
+                    if (큰값) { // 50보다 크면 성공
+                        성공("50%를 넘었습니다! {then으로 보낸다}");
+                        }else{
+                        실패("50%이하입니다! {catch로 보낸다}");
+                        }
+
+                },1000); // 1초 후에 
+            })
+
+            // promise 요청이 잘 마쳤으면 수행할 코드를 then으로로 적어준다.
+            promise요청.then((결과)=>{
+                // 처음의 then은 결과가  무사히 종료되었는지 알람형식으로 사용
+                let 글자 = 결과
+                return 글자;
+            })
+            .then((글자)=>{
+                alert(글자);
+            })
+             .catch((오류)=>{
+                // catch는 에러가 발생했을 때 수행할 코드를 적어준다.
+                alert(오류);  
+             })
+             .finally(()=>{
+                // finally는 성공과 실패에 상관없이 무조건 되는 코드
+                document.getElementById('msg').innerHTML = "작업 완료!";
+            });
+        }
+     </script>
+
+</body>
+</html>

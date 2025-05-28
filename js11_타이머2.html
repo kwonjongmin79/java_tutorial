@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .color-1 {
+            color: red;
+        }
+        .color-2 {
+            color: blue;
+        }
+    </style>
+
+</head>
+<body>
+    
+    <div id="content" class="color-1">3초가 안지났습니다</div>
+    <div id="my_timer"></div>
+
+    <script>
+        //setTimeout: 일정시간 후에 실행
+        //setInterval: 일정시간마다 반복 실행
+
+        function 삼초후에동작 () {
+            document.getElementById("content").classList.remove("color-1");  // 클래스 color-1 을 제거
+            document.getElementById("content").classList.add("color-2"); // color-2로 재지정  
+            document.getElementById("content").innerHTML = "3초가 지났습니다."; //3초가 지났습니다. 
+        }
+
+        let count = 0; // 카운트 변수 초기화
+        let timerID = null; // 타이머 ID 초기화;  
+        function 일초마다동작 () {    // count 변수를 1씩 증가시키는 함수 /
+            count = count + 1; // count 변수 1씩 증가
+            document.getElementById("my_timer").innerHTML = count; //3초가 지났습니다. 
+            
+          // 만약에, count가 10 이상이 되면 setInterval를 중지시켜라라
+            if (count >= 10) {
+                clearInterval(timerID); // setInterval 중지          
+            }
+       
+        }
+
+        setTimeout(삼초후에동작, 3000); // 3초 후에 삼초후에동작 함수 실행 / (함수이름, ms 시간 작성)
+        timerID = setInterval(일초마다동작, 1000); // 1초마다 일초마다동작 함수 실행 / (함수이름, ms 시간 작성)
+
+
+    </script>
+</body>
+</html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chet Gpt 앱</title>
+    <title>Gemini 앱</title>
     <style>
         *{
             margin: 0;
@@ -17,72 +17,154 @@
             min-height: 100vh; /* 최소사이즈를 100퍼센트로 보여줘줘 */
             width: 100%; /* 사이즈 100%로 */
             background-size: cover; /* 화면에 보이는 만큼 가득 채우기 */
+            font-family: Arial, sans-serif; /* 폰트설정 */
+            display: flex;
+            flex-direction: column; /* 세로방향으로 요소 정렬 */
         }
-
+        #pre{
+            white-space: pre-wrap; /* 택스트가 pre 태그 내에서 줄 바꿈되도록 함 */
+            flex-grow:1;
+            padding:20px; /* 입력한 내용의 안쪽 여백 */
+            overflow-y: auto; /* 내용이 넘치면 스크롤 바 생성*/
+            margin-bottom:80px; /* 하단 고정 입력창을 위한 공간 확보 */ 
+            background-color: rgba(255,255,255,0.8); /* 가독성을 위한 약간 투명한 배경 */
+            margin-top: auto;    /* 초기 채팅 내용을 하단에 붙여서 시작 */
+            color: #333; /* 택스트 색상 */
+            border-radius: 8px; /* 모서리 둥글게 */
+            margin: 20px; /* 전체 여백 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자 효과 */
+        }
+        .fixed-div{
+            position: fixed; /* 화면 하단에 고정 */
+            bottom: 0; /* 화면 하단에서 40px 위 */
+            /* width: 100%; */
+            /* background-color: rgba(255,255,255,0.95); 거의 불투명한 흰색 배경 */
+            /* padding: 5px; */
+            /* box-shadow: 0 -2px 10px rgba(0,0,0,0.1); */
+            left: 50%;
+            transform: translateX(-50%); /* 중앙 정렬을 위한 변환 */
+            bottom: 40px; /* 화면 하단에서 40px 위 */
+        }
+        .relative-div{
+            /* max-width: 800px; 가독성을 위해 너비 제한 */
+            /* margin: 0 auto ; 중앙 정렬             */
+            position: relative; /* 자식 요소의 위치 기준 설정 */
+            
+        }
+        .relative-div input {
+            border-radius: 1000px; /* 입력창 둥글게 */
+            outline: none; /* 포커스 시 테두리 제거 */
+            box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+            padding: 14px; /* 입력창 안쪽 여백 */;
+            width: 650px; /* 입력창 너비 */
+            font-size: 1.25rem; /* 폰트 크기 */
+            border :1px solid #ddd; /* 테두리 스타일 */
+            outline: none; /* 포커스 시 테두리 제거 */
+        }
+        .relative-div input:focus {
+            border-color: #007bff; /* 포커스 시 테두리 색상 변경 */
+            box-shadow: 0 0 5px rgba(0,123,255,0.5); /* 포커스 시 그림자 효과 */
+        }
+        form {
+            display: flex; /* Flexbox 레이아웃 사용 */
+            gap: 10px;
+        }
+          
+        #submit-btn{
+            padding: 10px 20px;
+            background-color: #007bff; /*파란색 버튼*/
+            color: white;
+            border: none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+            transition: background-color 0.2s ease; /* 호버 효과를 위한 트랜지션 */
+        }
+        #submit-btn:hover{
+            background-color:#0056b3;            
+        }
+        #submit-btn:disabled {
+            background-color: #cccccc; /* 비활성화 시 회색 적용*/
+            cursor: not-allowed; /* 마우스커서 변경*/
+        }
+        .relative-div button{
+            position: absolute; /* 버튼을 입력창 오른쪽에 위치시키기 위해 절대 위치 지정 / position: relative */
+            right: 12px; /* 입력창 오른쪽에 위치 */
+            top:50%; /* 버튼을 위쪽에서 50% 내리고 transform을 사용해서 내림림 */
+            transform: translateY(-50%); /* 버튼을 정확히 세로 중앙에 위치시키기 위한 변환 */
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body>
+    <pre id="pre"></pre>
+
     <div class="fixed-div">
         <div class="relative-div">
-            <form>
-                <input type="text" id="prompt">
+            <form id="chat-form">
+                <input type="text" id="prompt" placeholder="메세지를 입력하세요.">
                 <button type="submit" id="submit-btn">▶</button>
             </form>
         </div>
     </div>
     
-    <pre id="pre"></pre>
     <script>
-        let 이미실행중 = false
-        // chetgpt에 fetch를 통해서 질문을 보내고
-        // 응답을 기다리게 한다음에 다 받으면 화면에 뿌려주기기
-        
-        // 외부사이트에 요청하고 응답을 받아와야하기 때문에 aync function으로 제작
-        // 응답을 기다려야하기 때문에 await
-        async function 보내기() {
-            event.preventDefault(); // 이벤트가 새로고침안되게
-            // 버튼을 누르면 input에 있는 value를 가져온다.
-            let 입력값 = document.getElementById('prompt').value;
-            if(입력값{
-                document.getElementById('prompt').value = ''; // 입력된 값을 지워주는 코드
-              if(이미실행중 === false){
-                  이미실행중 = true; // 중복실행 차단용
-                  document.getElementById('submit-btn').innerHTML = '■'
-                  document.getElementById('pre').innerHTML += "\n\n사용자: " + 입력값
-                //GPT에 질문 보내기
-               let 응답결과 = await fetch('https://api.openai.com/v1/chat/completions',{
-                method: 'POST',
-                headers{
-                    "content-Type" : "application/json"
-                    
-                },
-                 body: JSON.stringify({
-                    model: "gpt-3.5-turbo",
-                    messages: [{ role: "developer", content: "You are a helpful assistant." 
-                        
-                    },
-                    {
-                        "role": "user",
-                        "content" : 입력값
+        // chetgpt에 fetch를 통해서 질문을 보내고 ▶ 응답을 기다리게 한다음에 다 받으면 화면에 뿌려주고 ▶  외부사이트에 요청하고 응답을 받아와야하기 때문에 aync function으로 제작 ▶ 응답을 기다려야하기 때문에 await
+        let 이미실행중 = false // 중복실행 방지 플래그  
+        const promptInput = document.getElementById('prompt') // prompt 메세지 찾아라
+        const submitBtn = document.getElementById('submit-btn')
+        const preOutput = document.getElementById('pre')
+        const chatForm = document.getElementById('chat-form')
+
+        // Gemini API로 메세지 전송 함수
+        async function 보내기(event) {
+            event.preventDefault(); // 기본 폼 제출 동작(새로고침) 방지
+            
+            let userPrompt = promptInput.value.trim() // 입력값 가져오기 및 공백 제거
+
+            // *** 중요 수정: if(userPrompt) 블록에 중괄호 {} 추가 ***
+            if(userPrompt) { 
+                promptInput.value =''; // 입력 필드 초기화
+                if(!이미실행중){
+                    이미실행중 = true; // 실행중 플래그 설정
+                    submitBtn.innerHTML = '■'; // 버튼 텍스트 변경 
+                    submitBtn.disabled = true; // 버튼 비활성화
+
+                    preOutput.innerHTML += "\n\n사용자 : " + userPrompt; // 사용자 메시지 표시
+                    preOutput.scrollTop = preOutput.scrollHeight; // 스크롤을 최하단으로 이동
+
+                    try{
+                        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=key',{
+                            method: 'POST',
+                            headers:{
+                                "Content-Type" : "application/json"
+                            },
+                            body: JSON.stringify({
+                                contents: [{
+                                    parts: [{
+                                        text:userPrompt
+                                    }]
+                                }]
+                            })
+                        });
+                        const data = await response.json(); // 응답 데이터 파싱
+                        // Gemini API 응답에서 텍스트 콘텐츠 접근
+                        const geminiText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "응답이 없습니다."; // 응답이 없을 경우 기본 메시지 설정
+                        preOutput.innerHTML += "\n\nGemini : " + geminiText; // Gemini 응답 표시
+                    } catch (error) {
+                        console.error('에러 발생:', error);
+                        preOutput.innerHTML += "\n\nGemini : 에러가 발생했습니다. 다시 시도해주세요."; // 에러 메시지 표시
+                    } finally {
+                        이미실행중 = false; // 실행중 플래그 해제
+                        submitBtn.innerHTML = '▶'; // 버튼 텍스트 원래대로
+                        submitBtn.disabled = false; // 버튼 활성화
+                        preOutput.scrollTop = preOutput.scrollHeight; // 채팅창을 가장 아래로 스크롤
                     }
-                    ]
-
-                  })
-
-               })     
-                
-            }  
-        });
-        let 제이슨 = await 응답결과.json() 
-        let text = 제이슨?.choices?.[0].message?.content ?? "내용이 없습니다." 
-        document.getElementById('pre').innerHTML += "\n\nCHATGPT: " + text
-        // https://platform.openai.com/docs/api-reference/chat/create
-        // https://api.openai.com/v1/chat/completions [post 요청]
-        
-        
-        // 다끝나고
-        이미실행중 = false;
-    }
+                }    
+            } // if(userPrompt) 블록 닫는 중괄호
+        }
+        // 폼 제출 이벤트에 sendMessage 함수 연결
+        chatForm.addEventListener('submit', 보내기);
     </script>
 </body>
 </html>
