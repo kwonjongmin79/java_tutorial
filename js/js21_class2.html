@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class2</title>
+</head>
+<body>
+    
+    <script>
+        // class : 상속 extends
+        class 사람 {
+            // constructor(){}  기본적으로 안적어도 가지고 있음 class 내
+            이름 = '홍길동'
+            나이 = 19
+            
+                소개(){
+                    console.log(`안녕하세요 ${this.이름} 입니다.`)
+                }
+        }
+        let 사람A = new 사람()
+        console.log(사람A.이름)
+
+        class 화가 extends 사람{   // extends 사용하면 다른 class에 있는 내용을 더 추가해야하거나, 수정해야 하거나
+            // constructor(){}  기본적으로 안적어도 가지고 있음 class 내
+            이름 = '홍길동'
+            나이 = 19
+            직업 = '웹툰작가'
+            
+                소개(){
+                    console.log(`안녕하세요 ${this.이름} 입니다. 
+                    저는 ${this.직업} 입니다.`)   // class 안에 this 기본적으로 생략되어 있음
+                }
+        }
+
+        
+
+        let 작가 = new 화가()
+        console.log(작가.직업)
+        작가.소개()
+    </script>
+
+</body>
+</html>

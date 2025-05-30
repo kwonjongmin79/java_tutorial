@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스토리지</title>
+</head>
+<body>
+        <input id="content" />
+        <br/>
+        <br/>
+            <button onclick="saveLocal()">로컬스토리지</button>
+            <button onclick="saveSession()">세션스토리지</button>
+        <hr>
+        <button onclick="loadLocal()">로컬스토리지 읽기</button>
+        <button onclick="loadSession()">세션스토리지 읽기</button>
+        <br />
+            <p id="output"> 세션 출력 영역</p>
+        <br />
+        <button onclick="deleteLocal()">로컬스토리지 삭제</button>
+        <button onclick="deleteSession()">세션스토리지 삭제</button>
+        
+    <script>
+        // 비회원 장바구니 담기 (웹사이트에는 작은 공간 기록)
+        // 로컬스토리지 localStorage : 웹사이트를 종료를 해도 남아 있음, (반영구적으로 웹사이트에 기록)
+        // 세션 스토리지 sessionStorage : 웹사이트 껏다키면 없어짐 (로그인 유지 하는데 사용함)
+
+        // localStorage.setItem('키워드', '저장할값')
+        // localStorage.removeItem('키워드')
+        // localStorage.getItem('키워드') : 저장할 값을 알려줌
+        
+            function saveLocal(){
+              let 변수 = document.getElementById('content').value; // input에 적힌 글자를 가져온다.
+                document.getElementById('content').value = '';
+             
+                 변수 ? localStorage.setItem('로컬',변수) : null  // 가져온 글자를 로컬스토리지에 SetItem으로 저장
+            }
+            function saveSession(){
+                let 변수 = document.getElementById('content').value; // input에 적힌 글자를 가져온다.
+                document.getElementById('content').value = '';
+
+                변수 ? sessionStorage.setItem('세션',변수) : null   // 가져온 글자를 세션스토리지에 SetItem으로 저장
+            }
+            function loadLocal(){   
+                 let 변수 = localStorage.getItem('로컬');
+                //  document.getElementById('output').innerText = '로컬스토리지 값' + 변수;
+                변수 ? alert(변수) : null
+            }
+            function loadSession(){
+                let 변수 = sessionStorage.getItem('세션');
+                변수 ? document.getElementById('output').innerText = '세션스토리지 값' + 변수 :null
+            }
+               function deleteLocal(){   
+                 let 변수 = localStorage.removeItem('로컬');
+                //  document.getElementById('output').innerText = '로컬스토리지 값' + 변수;
+                alert(변수)
+            }
+            function deleteSession(){
+                let 변수 = sessionStorage.removeItem('세션');
+                document.getElementById('output').innerText = '세션스토리지 값' + 변수;
+            }
+    </script>
+</body>
+</html>
